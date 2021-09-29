@@ -1,8 +1,5 @@
 # reackus Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
 ## Running the application in dev mode
 
@@ -45,13 +42,7 @@ You can then execute your native executable with: `./build/reackus-1.0.0-SNAPSHO
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
 
-## Related Guides
+## Sonarqube
 
-
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+6e440873f8ea9541356bb2eda5cf1829a94a2776
+gradlew sonarqube -Dsonar.projectKey=reackus -Dsonar.host.url=http://localhost:19000 -Dsonar.login=6e440873f8ea9541356bb2eda5cf1829a94a2776

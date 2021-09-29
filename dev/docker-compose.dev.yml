@@ -1,0 +1,35 @@
+version: "3"
+services:
+  sonarqube:
+    build:
+      context: .
+      dockerfile: Dockerfile.sonarqube
+    container_name: reackus-sonarqube
+    ports:
+      - "19000:9000"
+    environment:
+      - SONARQUBE_HOME=/opt/sonarqube
+    volumes:
+      - ./sonarqube/conf:/opt/sonarqube/conf
+      - ./sonarqube/data:/opt/sonarqube/data
+      - ./sonarqube/extensions:/opt/sonarqube/extensions
+    networks:
+      - reackus_network
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    container_name: reackus-database
+    ports:
+      - "13306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=pass
+      - MARIADB_DATABASE=reackus
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=pass
+      - MARIADB_INITDB_SKIP_TZINFO=1
+    networks:
+      - reackus_network
+networks:
+  reackus_network:
+    driver: bridge

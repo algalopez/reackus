@@ -1,0 +1,90 @@
+
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id "org.sonarqube" version "3.3"
+    id 'jacoco'
+    id "org.flywaydb.flyway" version "8.0.0-beta2"
+}
+
+group = 'com.algalopez'
+version project_version
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+}
+
+wrapper {
+    gradleVersion = '7.2'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+//    implementation group: 'io.quarkus', name: 'quarkus-flyway'
+//    implementation group: 'io.quarkus', name: 'quarkus-jdbc-mariadb'
+//    implementation group: 'io.quarkus', name: 'quarkus-rest-client-mutiny'
+//    implementation group: 'io.quarkus', name: 'quarkus-reactive-mysql-client'
+//    implementation group: 'io.quarkus', name: 'quarkus-resteasy-mutiny'
+//    implementation group: 'io.quarkus', name: 'quarkus-smallrye-openapi'
+//    implementation group: 'io.quarkus', name: 'quarkus-smallrye-reactive-messaging-kafka'
+//    implementation group: 'io.quarkus', name: 'quarkus-hibernate-orm-panache'
+//    implementation group: 'io.quarkus', name: 'quarkus-mutiny'
+//    implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive'
+//    implementation group: 'io.quarkus', name: 'quarkus-hibernate-orm'
+//    implementation group: 'io.quarkus', name: 'quarkus-minikube'
+//    implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive-panache'
+//    implementation group: 'io.quarkus', name: 'quarkus-container-image-docker'
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy-reactive'
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy-reactive-jackson'
+//    implementation group: 'io.quarkus', name: 'quarkus-kafka-client'
+//    implementation group: 'io.quarkus', name: 'quarkus-avro'
+//    implementation group: 'io.quarkus', name: 'quarkus-logging-json'
+//    implementation group: 'io.quarkus', name: 'quarkus-smallrye-health'
+//    implementation group: 'io.quarkus', name: 'quarkus-smallrye-metrics'
+//    implementation group: 'io.quarkus', name: 'quarkus-micrometer'
+//    implementation group: 'io.quarkus', name: 'quarkus-hibernate-validator'
+//    implementation group: 'io.quarkus', name: 'quarkus-redis-client'
+//    implementation group: 'io.quarkus', name: 'quarkus-arc'
+    testImplementation group: 'io.quarkus', name: 'quarkus-junit5'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: restAssuredVersion
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+sonarqube {
+    properties {
+        property 'sonar.projectKey', 'reackus'
+        property 'sonar.projectName', 'reackus'
+        property 'sonar.projectVersion', version
+        property 'sonar.language', 'java'
+        property 'sonar.sources', 'src/main/java'
+        property 'sonar.tests', 'src/test/java'
+        property 'sonar.sourceEncoding', 'UTF-8'
+        property 'sonar.exclusions', '**/*Constants.java'
+        property 'sonar.coverage.exclusions', '**/*Constants.java'
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+    }
+    dependsOn test
+}
+
+//systemProp.sonar.host.url=http://localhost:19000
+
