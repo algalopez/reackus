@@ -13,3 +13,4 @@ build/
 
 # Other
 dev/sonarqube/
+hidden.properties

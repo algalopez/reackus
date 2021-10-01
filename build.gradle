@@ -1,14 +1,14 @@
-
 plugins {
     id 'java'
+    id 'groovy'
     id 'io.quarkus'
     id "org.sonarqube" version "3.3"
     id 'jacoco'
-    id "org.flywaydb.flyway" version "8.0.0-beta2"
 }
 
 group = 'com.algalopez'
 version project_version
+
 
 java {
     sourceCompatibility = JavaVersion.VERSION_16
@@ -86,4 +86,29 @@ jacocoTestReport {
     dependsOn test
 }
 
+task waitForDatabase() {
+    doLast {
+        commandLine 'bash', "database/wait-for-database.sh", "url=127.0.0.1", "port=13306", "user=user", "pass=pass"
+    }
+}
 
+task buildFlywayImage(type: Exec) {
+    group 'database'
+    executable "docker"
+    args('build', '--no-cache', '-f', "${projectDir}/database/Dockerfile.flyway", '-t', 'reackus-flyway', "${projectDir}//database")
+}
+
+task createDb(type: Exec) {
+    group 'database'
+    executable "docker"
+    args('run', '--rm', '--name', 'reackus-flyway', '--net=host', 'reackus-flyway', 'clean', 'migrate')
+}
+
+task createDbPre(type: Exec) {
+    group 'database'
+    executable "docker"
+    args('run', '--rm', '--name', 'reackus-flyway', '--net=host', 'reackus-flyway', '-configFiles=/flyway/conf/flyway-pre.conf', 'clean', 'migrate')
+}
+
+
+tasks.named("sonarqube") { it.dependsOn jacocoTestReport }
