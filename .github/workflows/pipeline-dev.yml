@@ -31,9 +31,16 @@ jobs:
           echo asdsadasd
           echo qweqweqwe
 
-      - name: Build and Unit test
+      - name: Start environment
         run: |
           chmod +x gradlew
+          docker compose -f dev/docker-compose.dev.yml up -d --build
+          ./database/wait-for-database.sh
+          ./gradlew buildFlywayImage
+          ./gradlew createDb
+
+      - name: Build and Unit test
+        run: |
           ./gradlew clean build
 
       - name: Quality gate
