@@ -35,7 +35,7 @@ public class ProductHandler {
 
     public Uni<ProductResponses> getAllProducts() {
         return getAllProductsActor.run(null)
-                .onItem().transform(x -> x.stream().map(productMapper::toDto).collect(Collectors.toList()))
+                .onItem().transform(x -> x.stream().map(productMapper::toDto).toList())
                 .onItem().transform(ProductResponses::new);
     }
 

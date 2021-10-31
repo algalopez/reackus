@@ -14,7 +14,6 @@ import org.mockito.Mockito;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -44,6 +43,7 @@ class ProductResourceTest {
                 .when().get("/product")
                 .then()
                 .statusCode(200)
+                .log().ifValidationFails(LogDetail.BODY)
                 .body("products[0].id", is(1))
                 .body("products[0].name", is("product 1"));
     }
@@ -56,6 +56,7 @@ class ProductResourceTest {
                 .when().get("/product/1")
                 .then()
                 .statusCode(200)
+                .log().ifValidationFails(LogDetail.BODY)
                 .body("product.id", is(1))
                 .body("product.name", is("product 1"));
     }
@@ -70,9 +71,8 @@ class ProductResourceTest {
                 .body(body)
                 .when().post("/product")
                 .then()
-                .log().ifValidationFails(LogDetail.BODY)
-                .statusCode(200)
-                .body("product.id", is(1));
+                .statusCode(201)
+                .header("location", is("http://localhost:8081/product/1"));
     }
 
     static Uni<Product> buildExpectedProduct() {

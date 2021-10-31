@@ -84,6 +84,7 @@ compileTestJava {
 sonarqube {
     properties {
         property 'sonar.projectKey', 'reackus'
+        property 'sonar.organization', 'algalopez'
         property 'sonar.projectName', 'reackus'
         property 'sonar.projectVersion', version
         property 'sonar.language', 'java'
