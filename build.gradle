@@ -6,7 +6,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'com.algalopez'
+group = 'com.algalopez.reackus'
 version project_version
 
 
@@ -74,7 +74,6 @@ dependencies {
 
 compileJava {
     options.encoding = 'UTF-8'
-    options.compilerArgs << '-parameters'
 }
 
 compileTestJava {
@@ -83,8 +82,9 @@ compileTestJava {
 
 sonarqube {
     properties {
-        property 'sonar.projectKey', 'reackus'
+        property 'sonar.organization', 'algalopez'
         property 'sonar.projectName', 'reackus'
+        property 'sonar.projectKey', 'algalopez_reackus'
         property 'sonar.projectVersion', version
         property 'sonar.language', 'java'
         property 'sonar.sources', 'src/main/java'

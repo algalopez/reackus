@@ -1,6 +1,6 @@
 # reackus Project
 
-[![Quality Gate Status (%)](https://sonarcloud.io/api/project_badges/measure?project=Reackus&metric=alert_status)](https://sonarcloud.io/dashboard?id=Reackus)
+[![Quality Gate Status (%)](https://sonarcloud.io/api/project_badges/measure?project=reackus&metric=alert_status)](https://sonarcloud.io/dashboard?id=reackus)
 
 ## Description
 
