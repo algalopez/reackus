@@ -1,4 +1,4 @@
-package com.algalopez;
+package com.algalopez.reackus.api.greeting;
 
 import io.quarkus.test.junit.NativeImageTest;
 

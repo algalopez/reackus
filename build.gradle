@@ -31,17 +31,14 @@ dependencies {
 //    implementation group: 'io.quarkus', name: 'quarkus-rest-client-mutiny'
 //    implementation group: 'io.quarkus', name: 'quarkus-reactive-mysql-client'
 //    implementation group: 'io.quarkus', name: 'quarkus-resteasy-mutiny'
-//    implementation group: 'io.quarkus', name: 'quarkus-smallrye-openapi'
 //    implementation group: 'io.quarkus', name: 'quarkus-smallrye-reactive-messaging-kafka'
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-orm-panache'
-//    implementation group: 'io.quarkus', name: 'quarkus-mutiny'
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive'
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-orm'
 //    implementation group: 'io.quarkus', name: 'quarkus-minikube'
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive-panache'
 //    implementation group: 'io.quarkus', name: 'quarkus-container-image-docker'
-    implementation group: 'io.quarkus', name: 'quarkus-resteasy-reactive'
-    implementation group: 'io.quarkus', name: 'quarkus-resteasy-reactive-jackson'
+//    implementation group: 'io.quarkus', name: 'quarkus-resteasy-jackson'
 //    implementation group: 'io.quarkus', name: 'quarkus-kafka-client'
 //    implementation group: 'io.quarkus', name: 'quarkus-avro'
 //    implementation group: 'io.quarkus', name: 'quarkus-logging-json'
@@ -51,8 +48,28 @@ dependencies {
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-validator'
 //    implementation group: 'io.quarkus', name: 'quarkus-redis-client'
 //    implementation group: 'io.quarkus', name: 'quarkus-arc'
+    implementation group: 'io.quarkus', name: 'quarkus-mutiny'
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy-reactive'
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy-reactive-jackson'
+    implementation group: 'io.quarkus', name: 'quarkus-smallrye-openapi'
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: mapstructVersion
+    implementation group: 'org.javatuples', name: 'javatuples', version: javatuplesVersion
+    implementation group: 'org.aspectj', name: 'aspectjrt', version: aspectJVersion
+    implementation group: 'org.aspectj', name: 'aspectjweaver', version: aspectJVersion
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstructVersion
+
     testImplementation group: 'io.quarkus', name: 'quarkus-junit5'
+    testImplementation group: 'io.quarkus', name: 'quarkus-junit5-mockito'
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: restAssuredVersion
+
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    testAnnotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
 }
 
 compileJava {
