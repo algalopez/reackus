@@ -1,4 +1,4 @@
-name: Reackus CI
+name: Reackus dev CI
 
 on:
   push:
