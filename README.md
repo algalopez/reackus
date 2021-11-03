@@ -23,3 +23,6 @@ Action:  Kafka
 - Database
 - Sonarqube
 
+## Notes
+
+- There is no support from Quarkus to Spock at this time
