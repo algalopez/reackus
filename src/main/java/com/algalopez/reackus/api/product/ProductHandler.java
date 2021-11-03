@@ -7,7 +7,6 @@ import org.javatuples.Pair;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.JsonMergePatch;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ProductHandler {

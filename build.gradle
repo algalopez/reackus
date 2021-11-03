@@ -24,6 +24,10 @@ repositories {
     mavenLocal()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 //    implementation group: 'io.quarkus', name: 'quarkus-flyway'
@@ -65,6 +69,9 @@ dependencies {
     testImplementation group: 'io.quarkus', name: 'quarkus-junit5'
     testImplementation group: 'io.quarkus', name: 'quarkus-junit5-mockito'
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: restAssuredVersion
+    testImplementation group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
+    testImplementation group: 'org.codehaus.groovy', name: 'groovy-sql', version: groovyVersion
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: spockVersion
 
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
