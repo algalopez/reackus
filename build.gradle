@@ -60,8 +60,6 @@ dependencies {
     implementation group: 'org.javatuples', name: 'javatuples', version: javatuplesVersion
     implementation group: 'org.aspectj', name: 'aspectjrt', version: aspectJVersion
     implementation group: 'org.aspectj', name: 'aspectjweaver', version: aspectJVersion
-//    implementation group: 'javax.json', name: 'javax.json-api', version: '1.1.4'
-//    implementation group: 'org.apache.johnzon', name: 'johnzon-core', version: '1.2.15'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
@@ -70,6 +68,7 @@ dependencies {
 
     testImplementation group: 'io.quarkus', name: 'quarkus-junit5'
     testImplementation group: 'io.quarkus', name: 'quarkus-junit5-mockito'
+    testImplementation group: 'io.quarkus', name: 'quarkus-jacoco'
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: restAssuredVersion
     testImplementation group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
     testImplementation group: 'org.codehaus.groovy', name: 'groovy-sql', version: groovyVersion
