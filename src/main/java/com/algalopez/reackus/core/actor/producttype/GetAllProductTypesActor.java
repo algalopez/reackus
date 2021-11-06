@@ -13,7 +13,7 @@ public class GetAllProductTypesActor extends BaseInteractor<Void, Uni<List<Produ
 
     @Override
     public Uni<List<ProductType>> run(Void ignore) {
-        ProductType productType = new ProductType(1L, "product 1");
+        ProductType productType = new ProductType(1L, "product type 1");
         return Uni.createFrom().item(Collections.singletonList(productType));
     }
 }

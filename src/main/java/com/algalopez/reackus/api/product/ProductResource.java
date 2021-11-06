@@ -1,89 +1,83 @@
 package com.algalopez.reackus.api.product;
 
 
-import com.algalopez.reackus.api.common.UriException;
-import com.algalopez.reackus.core.model.ProductType;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.algalopez.reackus.api.common.UriHelper;
 import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import static com.algalopez.reackus.api.product.ProductResource.RESOURCE;
 
 @Slf4j
 @ApplicationScoped
 @Path(RESOURCE)
+@Tag(name = "Product", description = "Product operations")
 public class ProductResource {
 
-    public static final String RESOURCE = "product";
+    public static final String RESOURCE = "product-type/{typeId}/product";
 
-    private final ProductTypeHandler productTypeHandler;
+    private final ProductHandler productHandler;
 
-    public ProductResource(final ProductTypeHandler productTypeHandler) {
-        this.productTypeHandler = productTypeHandler;
+    public ProductResource(final ProductHandler productHandler) {
+        this.productHandler = productHandler;
     }
 
     @GET
-    @Operation(summary = "Get products", description = "Get list of products")
+    @Operation(summary = "Get products by type", description = "Get list of product by type")
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<ProductTypeResponses> getAll() {
-
-        return productTypeHandler.getAllProductTypes();
+    public Uni<ProductResponses> getAll(@PathParam("typeId") Long typeId) {
+        return productHandler.getAllProducts(typeId);
     }
 
     @GET
-    @Operation(summary = "Get product", description = "Get product by id")
+    @Operation(summary = "Get product", description = "Get product by typeId and id")
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<ProductTypeResponse> get(@PathParam("id") Integer id) {
+    public Uni<ProductResponse> get(
+            @PathParam("typeId") Long typeId,
+            @PathParam("id") Long id) {
 
-        return productTypeHandler.getProductType(id);
+        return productHandler.getProduct(typeId, id);
     }
 
     @POST
     @Operation(summary = "Create product", description = "Create product")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Response> create(ProductType productType) {
+    public Uni<Response> create(
+            @PathParam("typeId") Long typeId,
+            ProductDTO product) {
 
-        return productTypeHandler.createProductType(productType)
-                .map(ProductResource::buildUri)
+        return productHandler.createProduct(typeId, product)
+                .map(newId -> UriHelper.buildUri("product-type/%d/product/%d".formatted(typeId, newId)))
                 .map(newProductUri -> Response.created(newProductUri).build());
     }
 
     @DELETE
-    @Operation(summary = "Delete product", description = "Delete product by id")
+    @Operation(summary = "Delete product", description = "Delete product by typeId and id")
     @Path("/{id}")
     @Consumes("application/merge-patch+json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<ProductTypeResponse> delete(@PathParam("id") Integer id) {
+    public Uni<Void> delete(@PathParam("typeId") Long typeId, @PathParam("id") Long id) {
 
-        return productTypeHandler.getProductType(1);
+        return productHandler.deleteProduct(typeId, id);
     }
 
     @PATCH
-    @Operation(summary = "Update product", description = "Update product by id")
+    @Operation(summary = "Update product", description = "Update product by typeId and id")
     @Path("/{id}")
     @Consumes("application/merge-patch+json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<ProductTypeResponse> patch(@PathParam("id") Integer id, JsonNode patch) {
+    public Uni<ProductResponse> patch2(@PathParam("typeId") Long typeId,
+                                       @PathParam("id") Long id,
+                                       String patch) {
 
-        return productTypeHandler.getProductType(1);
-    }
-
-    private static URI buildUri(Integer id) {
-        try {
-            return new URI("/%s/%d".formatted(RESOURCE, id));
-        } catch (URISyntaxException e) {
-            log.trace("", e);
-            throw new UriException(e);
-        }
+        return productHandler.patchProduct(typeId, id, patch);
     }
 }

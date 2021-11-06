@@ -14,6 +14,6 @@ public class ProductAdapter {
     }
 
     public Uni<Product> findById(Long id) {
-        return productRepository.findById(id).onItem().transform(productMapper::toModel);
+        return productRepository.findById(id).map(productMapper::toModel);
     }
 }

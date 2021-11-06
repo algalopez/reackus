@@ -9,27 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.json.JsonMergePatch;
 
 @ApplicationScoped
-public class PatchProductTypeActor extends BaseInteractor<Pair<Integer, JsonMergePatch>, Uni<ProductType>> {
+public class PatchProductTypeActor extends BaseInteractor<Pair<Long, JsonMergePatch>, Uni<ProductType>> {
 
     @Override
-    public Uni<ProductType> run(Pair<Integer, JsonMergePatch> patch) {
-        return Uni.createFrom().item(new ProductType(1L, "product 1"));
+    public Uni<ProductType> run(Pair<Long, JsonMergePatch> patch) {
+        return Uni.createFrom().item(new ProductType(1L, "product type 1"));
     }
-
-        /*
-    @PatchMapping(path = ["/{id}"], consumes = ["application/merge-patch+json"])
-fun jsonMergePatchBook(
-    @PathVariable id: String,
-    @RequestBody patch: JsonNode
-): Mono<ResponseEntity<Book>> {
-    return Mono.fromSupplier {
-        val original: JsonNode = objectMapper.valueToTree(getBook(id))
-        val patched: JsonNode = JsonMergePatch.fromJson(patch).apply(original)
-        val patchedBook: Book =
-            objectMapper.treeToValue(patched) ?: throw RuntimeException("Could not convert json back to book")
-        updateBook(patchedBook)
-        ResponseEntity.ok(patchedBook)
-    }
-}
-     */
 }

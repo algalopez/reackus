@@ -1,17 +1,19 @@
 package com.algalopez.reackus.api.product;
 
-import com.algalopez.reackus.core.model.ProductType;
+import com.algalopez.reackus.core.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "cdi")
-public interface ProductTypeMapper {
+public interface ProductMapper {
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "productType", source = "productType")
     @Mapping(target = "name", source = "name")
-    ProductTypeDTO toDTO(ProductType productType);
+    ProductDTO toDTO(Product product);
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "productType", source = "productType")
     @Mapping(target = "name", source = "name")
-    ProductType toModel(ProductTypeDTO productType);
+    Product toModel(ProductDTO product);
 }

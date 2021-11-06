@@ -1,7 +1,8 @@
 package com.algalopez.reackus.api.product;
 
-public record ProductTypeDTO(
+public record ProductDTO(
         Long id,
+        ProductTypeDTO productType,
         String name
 ) {
 }

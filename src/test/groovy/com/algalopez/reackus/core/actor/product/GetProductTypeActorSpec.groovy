@@ -13,7 +13,7 @@ class GetProductTypeActorSpec extends Specification {
         ProductType actual = getProductTypeActor.run(1).await().indefinitely()
 
         then:
-        def expected = new ProductType(1, "product 1")
+        def expected = new ProductType(1, "product type 1")
         actual == expected
     }
 }

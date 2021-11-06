@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 public enum ResourceReader {
-    PRODUCT_1("api/product1.json"),
+    PRODUCT_TYPE_1("api/product-type-1.json"),
+    PRODUCT_TYPE_PATCH("api/product-type-patch.json"),
+    PRODUCT_1("api/product-1.json"),
     PRODUCT_PATCH("api/product-patch.json");
 
     private final String fileName;

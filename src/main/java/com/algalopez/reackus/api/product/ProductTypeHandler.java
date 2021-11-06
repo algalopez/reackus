@@ -1,11 +1,11 @@
 package com.algalopez.reackus.api.product;
 
 import com.algalopez.reackus.core.actor.producttype.*;
-import com.algalopez.reackus.core.model.ProductType;
 import io.smallrye.mutiny.Uni;
 import org.javatuples.Pair;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.json.Json;
 import javax.json.JsonMergePatch;
 
 @ApplicationScoped
@@ -34,27 +34,30 @@ public class ProductTypeHandler {
 
     public Uni<ProductTypeResponses> getAllProductTypes() {
         return getAllProductTypesActor.run(null)
-                .onItem().transform(x -> x.stream().map(productTypeMapper::toDto).toList())
-                .onItem().transform(ProductTypeResponses::new);
+                .map(x -> x.stream().map(productTypeMapper::toDTO).toList())
+                .map(ProductTypeResponses::new);
     }
 
-    public Uni<ProductTypeResponse> getProductType(Integer id) {
+    public Uni<ProductTypeResponse> getProductType(Long id) {
         return getProductTypeActor.run(id)
-                .onItem().transform(productTypeMapper::toDto)
-                .onItem().transform(ProductTypeResponse::new);
+                .map(productTypeMapper::toDTO)
+                .map(ProductTypeResponse::new);
     }
 
-    public Uni<Integer> createProductType(ProductType productType) {
-        return createProductTypeActor.run(productType);
+    public Uni<Long> createProductType(ProductTypeDTO productType) {
+        return Uni.createFrom().item(productType)
+                .map(productTypeMapper::toModel)
+                .flatMap(createProductTypeActor::run);
     }
 
-    public Uni<Void> deleteProductType(Integer id) {
+    public Uni<Void> deleteProductType(Long id) {
         return deleteProductTypeActor.run(id);
     }
 
-    public Uni<ProductTypeResponse> patchProductType(Integer id, JsonMergePatch patch) {
-        return patchProductTypeActor.run(new Pair<>(id, patch))
-                .onItem().transform(productTypeMapper::toDto)
-                .onItem().transform(ProductTypeResponse::new);
+    public Uni<ProductTypeResponse> patchProductType(Long id, String patch) {
+        JsonMergePatch jsonMergePatch = Json.createMergePatch(Json.createValue(patch));
+        return patchProductTypeActor.run(new Pair<>(id, jsonMergePatch))
+                .map(productTypeMapper::toDTO)
+                .map(ProductTypeResponse::new);
     }
 }

@@ -7,10 +7,10 @@ import io.smallrye.mutiny.Uni;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class GetProductTypeActor extends BaseInteractor<Integer, Uni<ProductType>> {
+public class GetProductTypeActor extends BaseInteractor<Long, Uni<ProductType>> {
 
     @Override
-    public Uni<ProductType> run(Integer integer) {
-        return Uni.createFrom().item(new ProductType(1L, "product 1"));
+    public Uni<ProductType> run(Long ignore) {
+        return Uni.createFrom().item(new ProductType(1L, "product type 1"));
     }
 }
