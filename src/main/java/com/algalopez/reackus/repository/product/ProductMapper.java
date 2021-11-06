@@ -1,4 +1,4 @@
-package com.algalopez.reackus.api.product;
+package com.algalopez.reackus.repository.product;
 
 import com.algalopez.reackus.core.model.Product;
 import org.mapstruct.Mapper;
@@ -8,10 +8,12 @@ import org.mapstruct.Mapping;
 public interface ProductMapper {
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "productType", source = "productType")
     @Mapping(target = "name", source = "name")
-    ProductDTO toDto(Product person);
+    ProductEntity toEntity(Product product);
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "productType", source = "productType")
     @Mapping(target = "name", source = "name")
-    Product toModel(ProductDTO person);
+    Product toModel(ProductEntity product);
 }

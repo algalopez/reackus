@@ -1,8 +1,8 @@
 package com.algalopez.reackus.api.product;
 
 import com.algalopez.reackus.api.ResourceReader;
-import com.algalopez.reackus.core.actor.product.*;
-import com.algalopez.reackus.core.model.Product;
+import com.algalopez.reackus.core.actor.producttype.*;
+import com.algalopez.reackus.core.model.ProductType;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import io.restassured.filter.log.LogDetail;
@@ -18,53 +18,53 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 
 @QuarkusTest
-class ProductResourceTest {
+class ProductTypeResourceTest {
 
     @InjectMock
-    private GetAllProductsActor getAllProductsActor;
+    private GetAllProductTypesActor getAllProductTypesActor;
 
     @InjectMock
-    private GetProductActor getProductActor;
+    private GetProductTypeActor getProductTypeActor;
 
     @InjectMock
-    private CreateProductActor createProductActor;
+    private CreateProductTypeActor createProductTypeActor;
 
     @InjectMock
-    private DeleteProductActor deleteProductActor;
+    private DeleteProductTypeActor deleteProductTypeActor;
 
     @InjectMock
-    private PatchProductActor patchProductActor;
+    private PatchProductTypeActor patchProductTypeActor;
 
     @Test
     void testGetAllProducts() {
-        Mockito.when(getAllProductsActor.run(null)).thenReturn(buildExpectedProducts());
+        Mockito.when(getAllProductTypesActor.run(null)).thenReturn(buildExpectedProducts());
 
         given()
                 .when().get("/product")
                 .then()
                 .statusCode(200)
                 .log().ifValidationFails(LogDetail.BODY)
-                .body("products[0].id", is(1))
-                .body("products[0].name", is("product 1"));
+                .body("productTypes[0].id", is(1))
+                .body("productTypes[0].name", is("product type 1"));
     }
 
     @Test
     void testGetProduct() {
-        Mockito.when(getProductActor.run(1)).thenReturn(buildExpectedProduct());
+        Mockito.when(getProductTypeActor.run(1)).thenReturn(buildExpectedProduct());
 
         given()
                 .when().get("/product/1")
                 .then()
                 .statusCode(200)
                 .log().ifValidationFails(LogDetail.BODY)
-                .body("product.id", is(1))
-                .body("product.name", is("product 1"));
+                .body("productType.id", is(1))
+                .body("productType.name", is("product type 1"));
     }
 
     @Test
     void testPostProduct() {
         Uni<Integer> newId = Uni.createFrom().item(1);
-        Mockito.when(createProductActor.run(any(Product.class))).thenReturn(newId);
+        Mockito.when(createProductTypeActor.run(any(ProductType.class))).thenReturn(newId);
         String body = ResourceReader.PRODUCT_1.read();
         given()
                 .contentType(ContentType.JSON)
@@ -75,13 +75,13 @@ class ProductResourceTest {
                 .header("location", is("http://localhost:8081/product/1"));
     }
 
-    static Uni<Product> buildExpectedProduct() {
-        Product product = new Product(1, "product 1");
+    static Uni<ProductType> buildExpectedProduct() {
+        ProductType product = new ProductType(1L, "product type 1");
         return Uni.createFrom().item(product);
     }
 
-    static Uni<List<Product>> buildExpectedProducts() {
-        Product product = new Product(1, "product 1");
+    static Uni<List<ProductType>> buildExpectedProducts() {
+        ProductType product = new ProductType(1L, "product type 1");
         return Uni.createFrom().item(List.of(product));
     }
 }

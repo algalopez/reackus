@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS `status`;
+USE `reackus`;
+
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` int(3) NOT NULL,

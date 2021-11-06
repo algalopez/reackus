@@ -1,7 +1,7 @@
-package com.algalopez.reackus.core.actor.product;
+package com.algalopez.reackus.core.actor.producttype;
 
 import com.algalopez.reackus.api.common.BaseInteractor;
-import com.algalopez.reackus.core.model.Product;
+import com.algalopez.reackus.core.model.ProductType;
 import io.smallrye.mutiny.Uni;
 import org.javatuples.Pair;
 
@@ -9,11 +9,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.json.JsonMergePatch;
 
 @ApplicationScoped
-public class PatchProductActor extends BaseInteractor<Pair<Integer, JsonMergePatch>, Uni<Product>> {
+public class PatchProductTypeActor extends BaseInteractor<Pair<Integer, JsonMergePatch>, Uni<ProductType>> {
 
     @Override
-    public Uni<Product> run(Pair<Integer, JsonMergePatch> patch) {
-        return Uni.createFrom().item(new Product(1, "product 1"));
+    public Uni<ProductType> run(Pair<Integer, JsonMergePatch> patch) {
+        return Uni.createFrom().item(new ProductType(1L, "product 1"));
     }
 
         /*

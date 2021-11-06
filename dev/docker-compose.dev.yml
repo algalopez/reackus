@@ -30,6 +30,10 @@ services:
       - MARIADB_INITDB_SKIP_TZINFO=1
     networks:
       - reackus_network
+    volumes:
+      - reackus-data:/var/lib/mysql
 networks:
   reackus_network:
     driver: bridge
+volumes:
+  reackus-data:

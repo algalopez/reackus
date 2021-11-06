@@ -1,4 +1,4 @@
-package com.algalopez.reackus.core.actor.product;
+package com.algalopez.reackus.core.actor.producttype;
 
 import com.algalopez.reackus.api.common.BaseInteractor;
 import io.smallrye.mutiny.Uni;
@@ -6,7 +6,7 @@ import io.smallrye.mutiny.Uni;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class DeleteProductActor extends BaseInteractor<Integer, Uni<Void>> {
+public class DeleteProductTypeActor extends BaseInteractor<Integer, Uni<Void>> {
 
     @Override
     public Uni<Void> run(Integer integer) {
