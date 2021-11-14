@@ -1,4 +1,4 @@
-package com.algalopez.reackus.core.aspect;
+package com.algalopez.reackus.aspect;
 
 
 import lombok.extern.slf4j.Slf4j;

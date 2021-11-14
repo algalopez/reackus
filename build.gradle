@@ -26,6 +26,10 @@ repositories {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    jacoco {
+        excludes=["*"]
+    }
 }
 
 dependencies {

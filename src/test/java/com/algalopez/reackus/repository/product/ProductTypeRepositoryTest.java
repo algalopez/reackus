@@ -1,7 +1,6 @@
 package com.algalopez.reackus.repository.product;
 
 import com.algalopez.reackus.DbUtils;
-import com.algalopez.reackus.core.model.ProductType;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

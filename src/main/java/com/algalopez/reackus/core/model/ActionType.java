@@ -1,7 +1,7 @@
 package com.algalopez.reackus.core.model;
 
-public record Action(
-        int id,
+public record ActionType(
+        Long id,
         String name
 ) {
 }

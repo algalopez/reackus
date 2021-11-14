@@ -1,11 +1,7 @@
-package com.algalopez.reackus.repository.produc
+package com.algalopez.reackus.repository.product
 
 
 import com.algalopez.reackus.core.model.ProductType
-import com.algalopez.reackus.repository.product.ProductTypeAdapter
-import com.algalopez.reackus.repository.product.ProductTypeEntity
-import com.algalopez.reackus.repository.product.ProductTypeMapper
-import com.algalopez.reackus.repository.product.ProductTypeRepository
 import io.smallrye.mutiny.Uni
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
