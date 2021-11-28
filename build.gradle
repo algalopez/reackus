@@ -1,8 +1,8 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'io.quarkus'
-    id "org.sonarqube" version "3.3"
+    id 'io.quarkus' version '2.5.0.Final'
+    id "org.sonarqube" version '3.3'
     id 'jacoco'
 }
 
@@ -16,7 +16,7 @@ java {
 }
 
 wrapper {
-    gradleVersion = '7.2'
+    gradleVersion = '7.3'
 }
 
 repositories {
@@ -26,10 +26,9 @@ repositories {
 
 test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport
-    jacoco {
-        excludes=["*"]
-    }
+//    jacoco {
+//        excludes=["*"]
+//    }
 }
 
 dependencies {
@@ -42,7 +41,6 @@ dependencies {
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive'
 //    implementation group: 'io.quarkus', name: 'quarkus-hibernate-orm'
 //    implementation group: 'io.quarkus', name: 'quarkus-minikube'
-//    implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive-panache'
 //    implementation group: 'io.quarkus', name: 'quarkus-container-image-docker'
 //    implementation group: 'io.quarkus', name: 'quarkus-resteasy-jackson'
 //    implementation group: 'io.quarkus', name: 'quarkus-kafka-client'
@@ -113,7 +111,6 @@ jacocoTestReport {
         xml.enabled true
         csv.enabled false
     }
-    dependsOn test
 }
 
 task waitForDatabase() {

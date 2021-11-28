@@ -1,0 +1,39 @@
+@startuml
+
+package api {
+    object GET_Product
+
+}
+
+package api-core {
+    object handler
+    object api_mapper
+}
+
+GET_Product -right-> handler
+handler <-right-> api_mapper
+
+package core {
+    object use_case
+    object service
+}
+api_mapper -right[dotted]-> use_case : request
+use_case -left[dotted]-> api_mapper : response
+use_case -right-> service
+
+package core-repository {
+    object repo_mapper
+    object adapter
+}
+
+service -right[dotted]-> repo_mapper : to entity
+repo_mapper -left[dotted]-> service : to model
+repo_mapper -right-> adapter
+
+package repository {
+    object dao
+}
+
+adapter <-right-> dao
+
+@enduml
