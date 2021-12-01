@@ -12,30 +12,26 @@ import java.util.List;
 @QuarkusTest
 class ActionTypeDaoTest {
 
-    @Inject
-    ActionTypeDao actionTypeDao;
+  @Inject ActionTypeDao actionTypeDao;
 
-    @Inject
-    DbUtils dbUtils;
+  @Inject DbUtils dbUtils;
 
-    @AfterEach
-    void cleanDatabase() {
-        dbUtils.executeUpdate("DELETE FROM action_type WHERE id IN (1, 2)");
-    }
+  @AfterEach
+  void cleanDatabase() {
+    dbUtils.executeUpdate("DELETE FROM action_type WHERE id IN (1, 2)");
+  }
 
-    @Test
-    void findAll() {
-        dbUtils.executeUpdate("INSERT INTO action_type (id, name) VALUES (1, 'buy')");
-        dbUtils.executeUpdate("INSERT INTO action_type (id, name) VALUES (2, 'sell')");
+  @Test
+  void findAll() {
+    dbUtils.executeUpdate("INSERT INTO action_type (id, name) VALUES (1, 'buy')");
+    dbUtils.executeUpdate("INSERT INTO action_type (id, name) VALUES (2, 'sell')");
 
-        List<ActionTypeDto> actualEntities = actionTypeDao.findAll().await().indefinitely();
+    List<ActionTypeDto> actualEntities = actionTypeDao.findAll().await().indefinitely();
 
-        ActionTypeDto expectedEntity1 = new ActionTypeDto(1L, "buy");
-        ActionTypeDto expectedEntity2 = new ActionTypeDto(2L, "sell");
+    ActionTypeDto expectedEntity1 = new ActionTypeDto(1L, "buy");
+    ActionTypeDto expectedEntity2 = new ActionTypeDto(2L, "sell");
 
-        Assertions.assertEquals(expectedEntity1, actualEntities.get(0));
-        Assertions.assertEquals(expectedEntity2, actualEntities.get(1));
-    }
-
-
+    Assertions.assertEquals(expectedEntity1, actualEntities.get(0));
+    Assertions.assertEquals(expectedEntity2, actualEntities.get(1));
+  }
 }

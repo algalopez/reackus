@@ -3,7 +3,6 @@ package com.algalopez.reackus.core.actor.product;
 import com.algalopez.reackus.core.model.Product;
 import com.algalopez.reackus.core.model.ProductType;
 import io.quarkus.test.junit.QuarkusTest;
-import org.javatuples.Pair;
 import org.javatuples.Triplet;
 import org.junit.jupiter.api.Test;
 

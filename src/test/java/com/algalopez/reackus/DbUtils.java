@@ -1,12 +1,11 @@
 package com.algalopez.reackus;
 
-import io.quarkus.runtime.ShutdownEvent;
-import io.quarkus.runtime.StartupEvent;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,41 +14,43 @@ import java.sql.SQLException;
 @Slf4j
 public class DbUtils {
 
-    private Connection connection;
+  private Connection connection;
 
-    public Connection connection() {
-        return connection;
+  public Connection connection() {
+    return connection;
+  }
+
+  @SneakyThrows
+  public void executeUpdate(String sql) {
+    connection.prepareStatement(sql).executeUpdate();
+  }
+
+  @PostConstruct
+  public void onStart() {
+    log.debug("The database is starting...");
+
+    try {
+      Class.forName("org.mariadb.jdbc.Driver");
+      connection =
+          DriverManager.getConnection("jdbc:mariadb://localhost:13306/reackus", "user", "pass");
+    } catch (SQLException | ClassNotFoundException e) {
+      log.error("Error creating test connection for database", e);
+      connection = null;
+      throw new IllegalStateException(e);
     }
+  }
 
-    @SneakyThrows
-    public void executeUpdate(String sql) {
-        connection.prepareStatement(sql).executeUpdate();
+  @PreDestroy
+  public void onStop() {
+    log.debug("The database is stopping...");
+
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      log.error("Error stopping test connection for database", e);
+      throw new IllegalStateException(e);
+    } finally {
+      connection = null;
     }
-
-    @SuppressWarnings("unused")
-    void onStart(@Observes StartupEvent ev) {
-        log.debug("The database is starting...");
-
-        try {
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:13306/reackus", "user", "pass");
-        } catch (SQLException e) {
-            log.error("Error creating test connection for database", e);
-            throw new IllegalStateException(e);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    void onStop(@Observes ShutdownEvent ev) {
-        log.debug("The database is stopping...");
-
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            log.error("Error creating test connection for database", e);
-            throw new IllegalStateException(e);
-
-        }
-    }
+  }
 }

@@ -58,10 +58,9 @@ dependencies {
     implementation group: 'io.quarkus', name: 'quarkus-smallrye-openapi'
     implementation group: 'io.quarkus', name: 'quarkus-hibernate-reactive-panache'
     implementation group: 'io.quarkus', name: 'quarkus-reactive-mysql-client'
+    implementation group: 'io.quarkus', name: 'quarkus-cache'
     implementation group: 'org.mapstruct', name: 'mapstruct', version: mapstructVersion
     implementation group: 'org.javatuples', name: 'javatuples', version: javatuplesVersion
-    implementation group: 'org.aspectj', name: 'aspectjrt', version: aspectJVersion
-    implementation group: 'org.aspectj', name: 'aspectjweaver', version: aspectJVersion
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
