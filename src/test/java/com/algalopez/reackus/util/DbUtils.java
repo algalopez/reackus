@@ -1,4 +1,4 @@
-package com.algalopez.reackus;
+package com.algalopez.reackus.util;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @ApplicationScoped
@@ -24,6 +25,16 @@ public class DbUtils {
   public void executeUpdate(String sql) {
     connection.prepareStatement(sql).executeUpdate();
   }
+
+  @SneakyThrows
+  public <T> T executeQuery(String sql, String field, Class<T> type) {
+    ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
+    resultSet.next();
+    T dbId = resultSet.getObject(field, type);
+    resultSet.close();
+    return dbId;
+  }
+
 
   @PostConstruct
   public void onStart() {

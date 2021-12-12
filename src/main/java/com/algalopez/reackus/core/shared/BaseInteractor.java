@@ -1,4 +1,4 @@
-package com.algalopez.reackus.api.common;
+package com.algalopez.reackus.core.shared;
 
 public abstract class BaseInteractor<I, O> {
 

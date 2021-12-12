@@ -1,7 +1,7 @@
 package com.algalopez.reackus.api.product;
 
 
-import com.algalopez.reackus.api.common.UriHelper;
+import com.algalopez.reackus.api.shared.UriHelper;
 import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.Operation;

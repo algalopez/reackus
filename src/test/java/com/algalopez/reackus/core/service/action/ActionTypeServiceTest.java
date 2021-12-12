@@ -1,6 +1,6 @@
 package com.algalopez.reackus.core.service.action;
 
-import com.algalopez.reackus.DbUtils;
+import com.algalopez.reackus.util.DbUtils;
 import com.algalopez.reackus.core.model.ActionType;
 import com.algalopez.reackus.core.service.ActionTypeService;
 import com.algalopez.reackus.profile.CacheTestProfile;

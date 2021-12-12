@@ -1,6 +1,7 @@
 package com.algalopez.reackus.core.actor.producttype;
 
-import com.algalopez.reackus.api.common.BaseInteractor;
+import com.algalopez.reackus.core.shared.BaseInteractor;
+import com.algalopez.reackus.repository.product.ProductTypeAdapter;
 import io.smallrye.mutiny.Uni;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,8 +9,14 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class DeleteProductTypeActor extends BaseInteractor<Long, Uni<Void>> {
 
-    @Override
-    public Uni<Void> run(Long ignore) {
-        return Uni.createFrom().item(() -> null);
-    }
+  private final ProductTypeAdapter productTypeAdapter;
+
+  public DeleteProductTypeActor(ProductTypeAdapter productTypeAdapter) {
+    this.productTypeAdapter = productTypeAdapter;
+  }
+
+  @Override
+  public Uni<Void> run(Long id) {
+    return productTypeAdapter.delete(id);
+  }
 }

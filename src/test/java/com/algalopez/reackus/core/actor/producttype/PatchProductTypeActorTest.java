@@ -1,6 +1,5 @@
 package com.algalopez.reackus.core.actor.producttype;
 
-import com.algalopez.reackus.core.model.ProductType;
 import io.quarkus.test.junit.QuarkusTest;
 import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
@@ -9,21 +8,20 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonMergePatch;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 class PatchProductTypeActorTest {
 
-    @Inject
-    PatchProductTypeActor patchProductTypeActor;
+  @Inject PatchProductTypeActor patchProductTypeActor;
 
-    @Test
-    void test() {
-        ProductType expectedProductType = new ProductType(1L, "product type 1");
-        JsonMergePatch jsonMergePatch = Json.createMergePatch(Json.createValue("{}"));
+  @Test
+  void test() {
+    JsonMergePatch mergePatch =
+        Json.createMergePatch(Json.createObjectBuilder().add("name", "Product type 2").build());
 
-        ProductType productType = patchProductTypeActor.run(new Pair<>(1L, jsonMergePatch)).await().indefinitely();
-
-        assertEquals(expectedProductType, productType);
-    }
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> patchProductTypeActor.run(new Pair<>(1L, mergePatch)).await().indefinitely());
+  }
 }

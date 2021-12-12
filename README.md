@@ -27,9 +27,24 @@ Just a small project to practice with Quarkus, reactive programming and some oth
 
 **Content**
 
-Product:  Crud with panache  
-Status:  Cache  
-Action:  Kafka  
+Api  
+Rest: *Resource  
+Kafka consumer:
+
+Core  
+Caffeine cache: ActionTypeService
+
+Repository  
+Crud with panache: *Repository (product)  
+Entity manager: *Dao (actionType)  
+Redis: (action)
+
+Client  
+Feign:  
+Kafka producer:
+Multiple  
+MapStruct: *Mapper  
+
 
 ## [Package](doc/package.md)
 
@@ -41,11 +56,10 @@ Action:  Kafka
 
 - Database
 - Sonarqube
-- 
+
 ## [Diagrams](doc/diagram.md)
 
-- Database
-- Sonarqube
+PlantUml documentation
 
 ## Notes
 

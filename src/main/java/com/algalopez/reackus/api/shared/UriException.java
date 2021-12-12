@@ -1,4 +1,4 @@
-package com.algalopez.reackus.api.common;
+package com.algalopez.reackus.api.shared;
 
 public class UriException extends RuntimeException {
 

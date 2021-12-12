@@ -1,4 +1,4 @@
-package com.algalopez.reackus.api.common;
+package com.algalopez.reackus.api.shared;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
